@@ -26,7 +26,7 @@ int main() {
         cout << get<2>(pair.second) << "]";
         cout << endl;
     }
-    
+
     cout << MENU;
     int input;
     cin >> input;
@@ -39,44 +39,46 @@ int main() {
                 cin >> villagerToChange;
                 auto iter = villagerAttributes.find(villagerToChange);
                 if (iter != villagerAttributes.end()) {
-                    get<0>(iter->second) += 1;
+                    if (get<0>(iter->second) < 10) // ensures friendship is bounded from 0 - 10
+                        get<0>(iter->second) += 1;
                 }
+                cout << villagerToChange << "'s firendship is now: " << get<0>(iter->second) << endl;
             }
             break;
             case 2:
+            {
+                string villagerToChange;
+                cout << "Which villager would you like to decrease?\n";
+                cin >> villagerToChange;
+                auto iter = villagerAttributes.find(villagerToChange);
+                if (iter != villagerAttributes.end()) {
+                    if (get<0>(iter->second) > 0) // ensures friendship is bounded from 0 - 10
+                        get<0>(iter->second) -= 1;
+                }
+                cout << villagerToChange << "'s firendship is now: " << get<0>(iter->second) << endl;
+            }
             break;
             case 3:
+            {
+                string villagerToSearch;
+                cout << "Which villager would you like to search for?\n";
+                cin >> villagerToSearch;
+                auto it = villagerAttributes.find(villagerToSearch);
+                if (it != villagerAttributes.end()) {  // the iterator points to beyond the end of the map
+                                       // if searchKey is not found
+                cout << "\nFound " << villagerToSearch << "'s attributes: ";
+                cout << "[" << get<0>(it->second) << ", ";
+                cout << get<1>(it->second) << ", ";
+                cout << get<2>(it->second) << "]";
+                cout << endl;
+            } else
+                cout << endl << villagerToSearch << " not found." << endl;
+            }
             break;
         }
         cout << MENU;
+        cin >> input;
     }
-
-    // access the map using a range-based for loop
-    cout << "Villager details:" << endl;
-    for (auto pair : villagerAttributes) {
-        cout << pair.first << ": ";
-        cout << "[" << get<0>(pair.second) << ", ";
-        cout << get<1>(pair.second) << ", ";
-        cout << get<2>(pair.second) << "]";
-        cout << endl;
-    }
-
-    
-    // delete an element
-    villagerAttributes.erase("Raymond");
-
-    // search for an element using .find() to avoid errors
-    string searchKey = "Drago";
-    auto it = villagerAttributes.find(searchKey);
-    if (it != villagerAttributes.end()) {  // the iterator points to beyond the end of the map
-                                       // if searchKey is not found
-        cout << "\nFound " << searchKey << "'s attributes: ";
-        cout << "[" << get<0>(it->second) << ", ";
-        cout << get<1>(it->second) << ", ";
-        cout << get<2>(it->second) << "]";
-        cout << endl;
-    } else
-        cout << endl << searchKey << " not found." << endl;
 
     // report size, clear, report size again to confirm map operations
     cout << "\nSize before clear: " << villagerAttributes.size() << endl;
