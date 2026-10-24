@@ -18,12 +18,30 @@ int main() {
     villagerAttributes["Raymond"] = {8, "Cat", "Nice fit"};
     villagerAttributes.insert({"Drago", {3, "Alligator", "Snap to it"}});
 
+    cout << "Villager details:" << endl;
+    for (auto pair : villagerAttributes) {
+        cout << pair.first << ": ";
+        cout << "[" << get<0>(pair.second) << ", ";
+        cout << get<1>(pair.second) << ", ";
+        cout << get<2>(pair.second) << "]";
+        cout << endl;
+    }
+    
     cout << MENU;
     int input;
     cin >> input;
     while (input != 4) {
         switch(input) {
             case 1:
+            {
+                string villagerToChange;
+                cout << "Which villager would you like to increase?\n";
+                cin >> villagerToChange;
+                auto iter = villagerAttributes.find(villagerToChange);
+                if (iter != villagerAttributes.end()) {
+                    get<0>(iter->second) += 1;
+                }
+            }
             break;
             case 2:
             break;
@@ -47,7 +65,6 @@ int main() {
     // delete an element
     villagerAttributes.erase("Raymond");
 
-    
     // search for an element using .find() to avoid errors
     string searchKey = "Drago";
     auto it = villagerAttributes.find(searchKey);
