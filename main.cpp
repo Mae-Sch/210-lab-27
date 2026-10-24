@@ -7,7 +7,8 @@
 using namespace std;
 
 int main() {
-    // declarations
+    const string MENU = "1. Increase Friendship\n2. Decrease Friendship\n3. Search for Villager\n4. Exit\n";
+
     // tuple holds friendship, species, and catchphrase, respectively
     map<string, tuple<int, string, string>> villagerAttributes;
 
@@ -17,7 +18,21 @@ int main() {
     villagerAttributes["Raymond"] = {8, "Cat", "Nice fit"};
     villagerAttributes.insert({"Drago", {3, "Alligator", "Snap to it"}});
 
-    
+    cout << MENU;
+    int input;
+    cin >> input;
+    while (input != 4) {
+        switch(input) {
+            case 1:
+            break;
+            case 2:
+            break;
+            case 3:
+            break;
+        }
+        cout << MENU;
+    }
+
     // access the map using a range-based for loop
     cout << "Villager details:" << endl;
     for (auto pair : villagerAttributes) {
