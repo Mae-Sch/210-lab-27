@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-    const string MENU = "1. Increase Friendship\n2. Decrease Friendship\n3. Search for Villager\n4. Exit\n";
+    const string MENU = "1. Add Villager\n2. Delete Villager\n3. Increase Friendship\n4. Decrease Friendship\n5. Search for Villager\n6. Exit\n";
 
     // tuple holds friendship, species, and catchphrase, respectively
     map<string, tuple<int, string, string>> villagerAttributes;
@@ -30,9 +30,39 @@ int main() {
     cout << MENU;
     int input;
     cin >> input;
-    while (input != 4) {
+    while (input != 6) {
         switch(input) {
-            case 1:
+            case 1: {
+                cout << "Villager name: ";
+                string name;
+                cin >> name;
+                cout << "Friendship level: ";
+                int friendshipLevel;
+                cin >> friendshipLevel;
+                cout << "Species: ";
+                string newSpecies;
+                cin >> newSpecies;
+                cout << "Catchphrase: ";
+                string catchphrase;
+                cin >> catchphrase;
+                villagerAttributes.insert({name, {friendshipLevel, newSpecies, catchphrase}});
+                cout << name << " added\n";
+            }
+            break;
+            case 2:
+            {
+                string villagerToDelete;
+                cout << "Which villager would you like to delete?\n";
+                cin >> villagerToDelete;
+                auto it = villagerAttributes.find(villagerToDelete);
+                if (it != villagerAttributes.end()) {  // the iterator points to beyond the end of the map
+                    villagerAttributes.erase(it);
+                    cout << villagerToDelete << " has been removed\n";
+                } else
+                    cout << endl << villagerToDelete << " not found." << endl;
+            }
+            break;
+            case 3:
             {
                 string villagerToChange;
                 cout << "Which villager would you like to increase?\n";
@@ -42,10 +72,10 @@ int main() {
                     if (get<0>(iter->second) < 10) // ensures friendship is bounded from 0 - 10
                         get<0>(iter->second) += 1;
                 }
-                cout << villagerToChange << "'s firendship is now: " << get<0>(iter->second) << endl;
+                cout << villagerToChange << "'s friendship is now: " << get<0>(iter->second) << endl;
             }
             break;
-            case 2:
+            case 4:
             {
                 string villagerToChange;
                 cout << "Which villager would you like to decrease?\n";
@@ -55,10 +85,10 @@ int main() {
                     if (get<0>(iter->second) > 0) // ensures friendship is bounded from 0 - 10
                         get<0>(iter->second) -= 1;
                 }
-                cout << villagerToChange << "'s firendship is now: " << get<0>(iter->second) << endl;
+                cout << villagerToChange << "'s friendship is now: " << get<0>(iter->second) << endl;
             }
             break;
-            case 3:
+            case 5:
             {
                 string villagerToSearch;
                 cout << "Which villager would you like to search for?\n";
