@@ -19,38 +19,29 @@ int main() {
 
     
     // access the map using a range-based for loop
-    cout << "Villagers and their favorite colors (range-based for loop):" << endl;
+    cout << "Villager details:" << endl;
     for (auto pair : villagerAttributes) {
         cout << pair.first << ": ";
-        cout << "[" << get<0>pair.second << ", ";
-        /*cout << get<1>pair.second << ", ";
-        cout << get<2>pair.second << ", ";*/
+        cout << "[" << get<0>(pair.second) << ", ";
+        cout << get<1>(pair.second) << ", ";
+        cout << get<2>(pair.second) << "]";
         cout << endl;
     }
 
-    /*
-    // access the map using iterators
-    cout << "\nVillagers and their favorite colors (iterators):" << endl;
-    for (map<string, vector<string>>::iterator it = villagerAttributes.begin(); 
-                                               it != villagerAttributes.end(); ++it) {
-        cout << it->first << ": ";
-        for (auto color : it->second) {
-            cout << color << " ";
-        }
-        cout << endl;
-    }
-
+    
     // delete an element
     villagerAttributes.erase("Raymond");
 
+    
     // search for an element using .find() to avoid errors
-    string searchKey = "Audie";
+    string searchKey = "Drago";
     auto it = villagerAttributes.find(searchKey);
     if (it != villagerAttributes.end()) {  // the iterator points to beyond the end of the map
                                        // if searchKey is not found
-        cout << "\nFound " << searchKey << "'s favorite colors: ";
-        for (auto color : it->second)  // range loop to traverse the value/vector
-            cout << color << " ";
+        cout << "\nFound " << searchKey << "'s attributes: ";
+        cout << "[" << get<0>(it->second) << ", ";
+        cout << get<1>(it->second) << ", ";
+        cout << get<2>(it->second) << "]";
         cout << endl;
     } else
         cout << endl << searchKey << " not found." << endl;
@@ -59,7 +50,6 @@ int main() {
     cout << "\nSize before clear: " << villagerAttributes.size() << endl;
     villagerAttributes.clear();
     cout << "Size after clear: " << villagerAttributes.size() << endl;
-    */
 
     return 0;
 }
